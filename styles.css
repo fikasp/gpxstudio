@@ -163,16 +163,23 @@ main {
 .main__zoom {
 	position: absolute;
 	left: 10px;
-	bottom: 5px;
-	padding: 6px 10px;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	height: var(--footer-height);
+	padding: 0 10px;
 	font-size: 0.8rem;
 	color: gray;
 	background: transparent;
 	border-radius: 6px;
-	/* box-shadow: var(--shadow); */
 	pointer-events: none;
 	user-select: none;
 	z-index: 2000;
+}
+body.fullscreen .main__zoom {
+	height: auto;
+	bottom: 5px;
+	padding: 6px 10px;
 }
 /* @b Hillshade layer */
 /*------------------------*/

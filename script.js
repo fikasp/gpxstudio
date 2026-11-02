@@ -1179,11 +1179,6 @@ const CONFIG = {
 				url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				attribution: '&copy; OpenStreetMap contributors',
 				maxNativeZoom: 19,
-			},
-			osmShade: {
-				url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-				attribution: '&copy; OpenStreetMap contributors',
-				maxNativeZoom: 19,
 				shading: {
 					url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
 					attribution: 'Hillshade &copy; Esri',
@@ -1218,7 +1213,7 @@ const CONFIG = {
 		lightColorThreshold: 0.6,
 	},
 	panel: {
-		minWidth: 320,
+		minWidth: 330,
 		maxWidth: 900,
 		minMapWidth: 0,
 	},
