@@ -1214,6 +1214,7 @@ const CONFIG = {
 	},
 	panel: {
 		minWidth: 330,
+		mobileBreakpoint: 768,
 		maxWidth: 900,
 		minMapWidth: 0,
 	},
@@ -1420,10 +1421,14 @@ const Pure = {
 		return (0.299 * r + 0.587 * g + 0.114 * b) / 255 >= CONFIG.track.lightColorThreshold
 	},
 
+	// @b Is mobile layout
+	//------------------------
+	isMobile: () => window.matchMedia(`(max-width: ${CONFIG.panel.mobileBreakpoint}px)`).matches,
+
 	// @b Map padding
 	//------------------------
 	getMapPadding: () => {
-		const panelWidth = STATE.panelCollapsed ? 0 : STATE.panelWidth
+		const panelWidth = STATE.panelCollapsed || Pure.isMobile() ? 0 : STATE.panelWidth
 		const header = STATE.fullscreen ? 0 : CONFIG.map.headerHeight
 		const footer = STATE.fullscreen ? 0 : CONFIG.map.footerHeight
 		return { topLeft: [20, header + 20], bottomRight: [panelWidth + 20, footer + 20] }
@@ -1722,7 +1727,16 @@ const Logic = {
 	//------------------------
 	setAddMode: (enabled) => {
 		STATE.addMode = enabled
+		if (enabled) Logic.collapsePanelOnMobile()
 		Effects.applyAddMode()
+	},
+
+	// @b Collapse panel on mobile
+	//------------------------
+	collapsePanelOnMobile: () => {
+		if (!Pure.isMobile() || STATE.panelCollapsed) return
+		STATE.panelCollapsed = true
+		Effects.updatePanelVisibility()
 	},
 
 	// @b Add waypoint
@@ -1874,7 +1888,10 @@ const Logic = {
 		}
 
 		if (addedTracks.length > 0 || addedPoints.length > 0) {
-			if (STATE.panelCollapsed) {
+			// Desktop: show the panel next to the result; mobile: the panel covers the whole map, so hide it
+			if (Pure.isMobile()) {
+				Logic.collapsePanelOnMobile()
+			} else if (STATE.panelCollapsed) {
 				STATE.panelCollapsed = false
 				Effects.updatePanelVisibility()
 			}
@@ -1969,6 +1986,7 @@ const Handlers = {
 		const waypoint = STATE.waypoints.find((wp) => wp.id === id)
 		if (!waypoint) return
 
+		Logic.collapsePanelOnMobile()
 		MapView.openEditPopup(waypoint.marker, id, waypoint.name, waypoint.desc, (newName, newDesc, lat, lon) => {
 			Logic.editWaypoint(id, newName, newDesc, lat, lon)
 		})
@@ -1985,6 +2003,7 @@ const Handlers = {
 	selectWaypointClick: (id) => {
 		const waypoint = STATE.waypoints.find((wp) => wp.id === id)
 		if (!waypoint || !waypoint.marker) return
+		Logic.collapsePanelOnMobile()
 		MapView.focusMarker(waypoint.marker)
 	},
 
@@ -2150,7 +2169,9 @@ const Handlers = {
 	//------------------------
 	selectTrackClick: (id) => {
 		const track = STATE.tracks.find((t) => t.id === id)
-		if (track) MapView.fitBounds([track.layer.getBounds()])
+		if (!track) return
+		Logic.collapsePanelOnMobile()
+		MapView.fitBounds([track.layer.getBounds()])
 	},
 
 	// @b Delete track click

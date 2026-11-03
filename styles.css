@@ -88,6 +88,7 @@ body {
 	font-family: 'Play', Verdana, sans-serif;
 	font-size: 1rem;
 	height: 100vh;
+	height: 100dvh;
 	overflow: hidden;
 	position: relative;
 }
@@ -363,6 +364,19 @@ body.fullscreen .main__zoom {
 @media (display-mode: fullscreen) {
 	.main__panel {
 		padding: 12px 15px;
+	}
+}
+
+/* Mobile: the expanded panel takes the whole width (keep the breakpoint in sync with CONFIG.panel.mobileBreakpoint) */
+@media (max-width: 768px) {
+	.main__panel {
+		width: 100%;
+		min-width: 0;
+		max-width: none;
+	}
+
+	.panel__resizer {
+		display: none;
 	}
 }
 

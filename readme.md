@@ -11,6 +11,7 @@ Prosta aplikacja webowa do przeglądania tras z plików GPX oraz tworzenia i edy
 * **Lista wyboru podkładu mapy** — OpenStreetMap, OpenStreetMap z cieniowaniem terenu, OpenTopoMap (turystyczna) lub Outdoor od Freemap (szlaki w kolorach oznakowania).
 * **Wskaźnik powiększenia** w lewym dolnym rogu mapy, zoom co 0,5 poziomu.
 * **Tryb pełnoekranowy** (np. F11) ukrywa nagłówek i stopkę.
+* **Widok mobilny** — na wąskich ekranach (do 768 px) rozwinięty panel zajmuje całą szerokość i sam się zwija po wczytaniu plików, wybraniu trasy lub punktu albo włączeniu trybu dodawania.
 
 ## 🏛️ Struktura projektu
 
@@ -40,6 +41,10 @@ Prosta aplikacja webowa do przeglądania tras z plików GPX oraz tworzenia i edy
 * Klawisz **F2** zwija/rozwija panel.
 
 ## ⏱️ Historia wersji
+
+* **v2.2 (2026-11-03):**
+  * Naprawa widoczności przycisków „Wczytaj”, „Zapisz” i „Wyczyść” na urządzeniach mobilnych (wysokość okna przy pasku adresu).
+  * Panel na mobile ma szerokość 100% i zwija się, gdy trzeba zobaczyć mapę.
 
 * **v2.1 (2026-10-31):**
   * Przełączanie podkładu mapy kółkiem myszy nad listą wyboru.
