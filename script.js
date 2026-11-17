@@ -1223,7 +1223,7 @@ const CONFIG = {
 		waypoints: 'GPX_waypoints',
 	},
 	defaults: {
-		trackColor: '#444444',
+		trackColor: '#000000',
 		trackColors: [
 			// gray
 			'#000000',
